@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FcU-Oc-XNZ">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="4x7-2O-GCt">
+            <objects>
+                <viewController id="Tge-Kv-IWf" customClass="ViewController" customModule="RaseGame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rZH-mA-iqb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="sF9-iK-ICz"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="5bX-CY-53b"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YWB-cc-JBA" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="842" y="84"/>
+        </scene>
+        <!--Setting View Controller-->
+        <scene sceneID="7cM-5Z-Iz7">
+            <objects>
+                <viewController id="THR-SS-EDt" customClass="SettingViewController" customModule="RaseGame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="c98-Ls-Out">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="A9l-h3-Du4"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="dEH-rI-bpC"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OzP-Lf-7XR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2111" y="222"/>
+        </scene>
+        <!--Records-->
+        <scene sceneID="fzK-0k-by0">
+            <objects>
+                <viewController id="4sc-AX-4Ne" customClass="RecordsViewController" customModule="RaseGame" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="u0C-k9-giY">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="yey-0e-6Qh"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Records" id="hnG-qe-Hge"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TyP-bM-vhE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2124" y="935"/>
+        </scene>
+        <!--New Game View Controller-->
+        <scene sceneID="KDQ-L3-UW3">
+            <objects>
+                <viewController id="48e-4M-Vax" customClass="NewGameViewController" customModule="RaseGame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lZb-X1-oeI">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="oRp-O3-KAh"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="AfZ-au-dKO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3oI-wM-pGD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2111" y="-487"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="cdc-xn-oCa">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FcU-Oc-XNZ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RfP-6o-DtW">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Tge-Kv-IWf" kind="relationship" relationship="rootViewController" id="WN9-sI-Msa"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="npW-vC-4RK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-914" y="173"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
