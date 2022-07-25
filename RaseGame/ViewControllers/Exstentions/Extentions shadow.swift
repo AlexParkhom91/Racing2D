@@ -22,7 +22,7 @@ func creatNewButton(xBtn: Int, yBtn: Int, backgroundColor: UIColor, buttonTitle:
     newButton.layer.shadowColor = UIColor.systemRed.cgColor
     newButton.layer.shadowOpacity = 0.5
     newButton.layer.shadowRadius = newButton.bounds.height / 2
-    
+    newButton.titleLabel?.font = UIFont(name: "VinSlabPro-Light", size: 22)
     return newButton
     
 }

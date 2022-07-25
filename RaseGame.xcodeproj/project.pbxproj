@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		692257C0288D960600993BAA /* VinSlabPro-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 692257BF288D960600993BAA /* VinSlabPro-Light.ttf */; };
 		69871B14287EB7330097BF0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69871B13287EB7330097BF0B /* AppDelegate.swift */; };
 		69871B16287EB7330097BF0B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69871B15287EB7330097BF0B /* SceneDelegate.swift */; };
 		69871B18287EB7330097BF0B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69871B17287EB7330097BF0B /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		692257BF288D960600993BAA /* VinSlabPro-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VinSlabPro-Light.ttf"; sourceTree = "<group>"; };
 		69871B10287EB7330097BF0B /* RaseGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RaseGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69871B13287EB7330097BF0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69871B15287EB7330097BF0B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +47,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		692257BE288D95F600993BAA /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				692257BF288D960600993BAA /* VinSlabPro-Light.ttf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
 		6936BD322881F0FA00BC2F44 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -60,6 +70,7 @@
 		69871B07287EB7330097BF0B = {
 			isa = PBXGroup;
 			children = (
+				692257BE288D95F600993BAA /* Font */,
 				69871B12287EB7330097BF0B /* RaseGame */,
 				69871B11287EB7330097BF0B /* Products */,
 			);
@@ -154,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69871B20287EB7330097BF0B /* LaunchScreen.storyboard in Resources */,
+				692257C0288D960600993BAA /* VinSlabPro-Light.ttf in Resources */,
 				69871B1D287EB7330097BF0B /* Assets.xcassets in Resources */,
 				69871B1B287EB7330097BF0B /* Main.storyboard in Resources */,
 			);
