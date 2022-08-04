@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "kisspng-car-clip-art-bed-top-view-5ace3e1db48997.1233454315234657577395.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "kisspng-car-clip-art-bed-top-view-5ace3e1db48997.1233454315234657577395-1.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "kisspng-car-clip-art-bed-top-view-5ace3e1db48997.1233454315234657577395-2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

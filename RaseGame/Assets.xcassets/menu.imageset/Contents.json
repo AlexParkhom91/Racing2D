@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "street.jpg",
+      "filename" : "photo-1550684376-efcbd6e3f031.jpeg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "street-1.jpg",
+      "filename" : "photo-1550684376-efcbd6e3f031-1.jpeg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "street-2.jpg",
+      "filename" : "photo-1550684376-efcbd6e3f031-2.jpeg",
       "idiom" : "universal",
       "scale" : "3x"
     }

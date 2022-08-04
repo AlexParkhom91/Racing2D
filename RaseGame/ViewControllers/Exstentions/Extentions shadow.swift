@@ -9,21 +9,23 @@ import Foundation
 import UIKit
 
 extension ViewController{
-func creatNewButton(xBtn: Int, yBtn: Int, backgroundColor: UIColor, buttonTitle: String) -> UIButton {
-    
-    let newButton = UIButton()
-    
-    newButton.frame = CGRect(x: xBtn, y: yBtn, width: 150, height: 60)
-    newButton.backgroundColor = backgroundColor
-    newButton.clipsToBounds = true
-    newButton.layer.cornerRadius = newButton.bounds.height / 2
-    newButton.setTitle(buttonTitle, for: .normal)
-    newButton.layer.masksToBounds = false
-    newButton.layer.shadowColor = UIColor.systemRed.cgColor
-    newButton.layer.shadowOpacity = 0.5
-    newButton.layer.shadowRadius = newButton.bounds.height / 2
-    newButton.titleLabel?.font = UIFont(name: "VinSlabPro-Light", size: 22)
-    return newButton
-    
-}
+    func createNewButton(buttonTitle: String) -> UIButton {
+        let newButton = UIButton()
+        
+        newButton.translatesAutoresizingMaskIntoConstraints = false
+        newButton.backgroundColor = .systemGray4
+        newButton.layer.cornerRadius = 30
+        newButton.layer.opacity = 0.95
+        newButton.layer.masksToBounds = false
+        newButton.layer.shadowColor = UIColor.systemBlue.cgColor
+        newButton.layer.shadowOffset = .zero
+        newButton.layer.shadowOpacity = 0.5
+        newButton.layer.shadowRadius = 30
+        newButton.titleLabel?.font = UIFont(name: "VinSlabPro-Light", size: 22)
+        newButton.setTitle(buttonTitle, for: .normal)
+        newButton.setTitleColor(UIColor.orange, for: .normal)
+        
+        return newButton
+        
+    }
 }

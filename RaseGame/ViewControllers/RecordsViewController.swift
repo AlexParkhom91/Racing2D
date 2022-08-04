@@ -8,23 +8,80 @@
 import Foundation
 import UIKit
 
-class RecordsViewController: UIViewController {
+class RecordsViewController: UIViewController{
+    
+    //MARK: - UI Element's
 
+    let userNameLabel = UILabel()
+    let scoreUserLabel = UILabel()
+    let backgroundView = UIImageView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-   
-        view.backgroundColor = .systemCyan
-        title = "Records"
         
-        let swipeBacktoMainScreen = UISwipeGestureRecognizer(target: self, action: #selector(swipeBackSqreen))
-        swipeBacktoMainScreen.direction = .right
-        view.addGestureRecognizer(swipeBacktoMainScreen)
+        setupLayout()
+        setupUserNameLabel()
+        setupScoreUserLabel()
 
     }
     
-    @objc func swipeBackSqreen() {
+    //MARK: - Setup Layout
     
-        navigationController?.popToRootViewController(animated: true)
+    func setupLayout() {
         
+        backgroundView.image = UIImage(named: "menu")
+        backgroundView.frame = view.frame
+        backgroundView.center = view.center
+        view.addSubview(backgroundView)
+        
+        
+    }
+    
+    //MARK: - Setup userNameLabel
+    
+    func setupUserNameLabel() {
+        
+        userNameLabel.backgroundColor = .blue
+        userNameLabel.layer.opacity = 0.75
+        userNameLabel.textAlignment = .center
+        userNameLabel.font = .boldSystemFont(ofSize: 26)
+        userNameLabel.textColor = .white
+        userNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(userNameLabel)
+        
+        if let name = UserDefaults.standard.object(forKey: "name") {
+            userNameLabel.text = name as? String
+        }
+        
+        NSLayoutConstraint.activate([
+            userNameLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1.25/3),
+            userNameLabel.heightAnchor.constraint(equalToConstant: 50),
+            userNameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            userNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10)
+        ])
+    }
+    
+    //MARK: - Setup ScoreUserLabel
+    
+    func setupScoreUserLabel() {
+        
+        scoreUserLabel.backgroundColor = .blue
+        scoreUserLabel.layer.opacity = 0.75
+        scoreUserLabel.textAlignment = .center
+        scoreUserLabel.font = .boldSystemFont(ofSize: 26)
+        scoreUserLabel.textColor = .white
+        scoreUserLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scoreUserLabel)
+        
+        if let scoreUser = UserDefaults.standard.object(forKey: "scoreUser") {
+            scoreUserLabel.text = scoreUser as? String
+        }
+        
+        NSLayoutConstraint.activate([
+            scoreUserLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1.25 / 3),
+            scoreUserLabel.heightAnchor.constraint(equalToConstant: 50),
+            scoreUserLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            scoreUserLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
+        ])
     }
 }

@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "street.jpg",
+      "filename" : "caryellow.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "street-1.jpg",
+      "filename" : "caryellow-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "street-2.jpg",
+      "filename" : "caryellow-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

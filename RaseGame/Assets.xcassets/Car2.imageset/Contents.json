@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "street.jpg",
+      "filename" : "carred.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "street-1.jpg",
+      "filename" : "carred-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "street-2.jpg",
+      "filename" : "carred-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
