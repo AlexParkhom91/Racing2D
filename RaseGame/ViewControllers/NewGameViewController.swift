@@ -190,6 +190,7 @@ class NewGameViewController: UIViewController {
     func stopBarrier(){
         stoneView.stopAnimating()
         custView.stopAnimating()
+        scoreLabel.isHidden = true
     }
     
     // MARK: Create gesture

@@ -28,6 +28,7 @@ extension NewGameViewController {
           alertGameOver()
           stoneView.isHidden = true
           custView.isHidden = true
+          stopBarrier()
       }
     }
 }
