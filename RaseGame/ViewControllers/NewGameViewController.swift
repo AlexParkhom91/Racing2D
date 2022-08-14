@@ -5,24 +5,27 @@
 //  Created by Александр Пархамович on 13.07.22.
 //
 
+
+
 import UIKit
 class NewGameViewController: UIViewController {
     
     //MARK: - UI Elements
     
-    let backgroundView = UIImageView()
-    let carView = UIImageView()
-    let stoneView = UIImageView()
-    let custView = UIImageView()
-    let scoreLabel = UILabel()
-    let navigatonBarView = UIView()
+    private let backgroundView = UIImageView()
+    private let carImageView = UIImageView()
+    private let stoneView = UIImageView()
+    private let scoreLabel = UILabel()
+    private let LeftRoadSide = UIView()
+    private let RightRoadSide = UIView()
     
-    let LeftRoadSide = UIView()
-    let RightRoadSide = UIView()
+    //MARK: - Variables
     
-    var settingsGame = Setting(car: "car")
-    var index = 0
-    var score = 0
+    private var settingsGame = Setting(car: "car", barrier: "Barrier")
+    private var index = 0
+    private var score = 0
+    private var scoreObserver = true
+    private var roadSideObserver = true
     
     //MARK: - View Did Load
     
@@ -30,10 +33,10 @@ class NewGameViewController: UIViewController {
         super.viewDidLoad()
         
         setupLayoutNewGameVC()
+        setupScoreLabel()
         setupCarView()
-        setupStoneView()
         swipeCar()
-      
+        
     }
     
     //MARK: - View Did Appear
@@ -42,9 +45,7 @@ class NewGameViewController: UIViewController {
         super.viewDidAppear(animated)
         
         moveStone()
-        moveCust()
-        setupScoreLabel()
-        navigationBar()
+        
     }
     
     //MARK: - Setup Layout
@@ -60,24 +61,26 @@ class NewGameViewController: UIViewController {
         
         RightRoadSide.frame = CGRect(x: view.bounds.maxX - 5, y: view.bounds.minY - 5, width: 5, height: view.bounds.maxY)
         view.addSubview(RightRoadSide)
+        
     }
-   
-    //MARK: -  Navigation Bar
     
-    func navigationBar() {
-       
-       navigatonBarView.backgroundColor = .systemGray3
-       navigatonBarView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height / 10)
-        view.addSubview(navigatonBarView)
-   }
+    //MARK: - RoadSide Check
+    
+    func roadSideCheck(){
+        if carImageView.frame.intersects(LeftRoadSide.frame) || carImageView.frame.intersects(RightRoadSide.frame){
+            
+            roadSideObserver = false
+            alertGameOver()
+            
+        }
+    }
+    
     //MARK: - Score Label
     
     func setupScoreLabel(){
-        let xScoreLabel = view.center.x
-        let yScoreLabel = view.frame.minY
-
-        scoreLabel.frame = CGRect(x: xScoreLabel - 50, y: yScoreLabel + 100, width: 100, height: 50)
-        scoreLabel.backgroundColor = .systemBlue
+        scoreLabel.frame = CGRect(x: 0, y: 50, width: 100, height: 50)
+        scoreLabel.center.x = view.center.x
+        scoreLabel.backgroundColor = .systemGray3
         scoreLabel.layer.opacity = 0.75
         scoreLabel.layer.cornerRadius = 12.5
         scoreLabel.clipsToBounds = true
@@ -88,20 +91,21 @@ class NewGameViewController: UIViewController {
         
     }
     
-    //MARK: - Car View
+    //MARK: - Car Image View
     
     func setupCarView(){
         let xCar: CGFloat = view.center.x
         let yCar: CGFloat = view.frame.maxY - view.frame.height / 4
-        let widthCar: CGFloat = view.frame.width / 5
-        let heightCar: CGFloat = view.frame.height / 5
+        let widthCar: CGFloat = view.frame.width / 4.25
+        let heightCar: CGFloat = view.frame.height / 6
         
-        carView.image = UIImage(named: "Car")
-        carView.isUserInteractionEnabled = true
-        carView.frame = CGRect(x: xCar, y: yCar, width: widthCar, height: heightCar)
-        view.addSubview(carView)
+        carImageView.image = UIImage(named: "Car")
+        carImageView.isUserInteractionEnabled = true
+        carImageView.frame = CGRect(x: xCar, y: yCar, width: widthCar, height: heightCar)
+        view.addSubview(carImageView)
         
         carImage()
+        
     }
     
     //MARK: - Stone View
@@ -109,134 +113,123 @@ class NewGameViewController: UIViewController {
     func setupStoneView() {
         let xStone:CGFloat = CGFloat(Int.random(in: Int(view.frame.minX)...Int((view.frame.maxX) - view.frame.width / 5)))
         let yStone:CGFloat = view.frame.minY + 10
-        let widthStone: CGFloat = view.frame.width / 5
+        let widthStone: CGFloat = view.frame.width / 4.25
         let heightStone: CGFloat = view.frame.height / 14
         
         stoneView.image = UIImage(named: "Stone")
         stoneView.frame = CGRect(x: xStone, y: yStone, width: widthStone, height: heightStone)
-        backgroundView.addSubview(stoneView)
-        
-    }
-    func setupCustView() {
-        let xCust:CGFloat = CGFloat(Int.random(in: Int(view.frame.minX)...Int((view.frame.maxX) - view.frame.width / 5)))
-        let yCust:CGFloat = view.frame.minY + 10
-        let widthCust: CGFloat = view.frame.width / 5
-        let heightCust: CGFloat = view.frame.height / 14
-        
-        custView.image = UIImage(named: "Cust")
-        custView.frame = CGRect(x: xCust, y: yCust, width: widthCust, height: heightCust)
-        backgroundView.addSubview(custView)
-        
+        view.addSubview(stoneView)
+        barrierImage()
     }
     
     //MARK: - Stone View Animated
     
     func moveStone(){
-        setupStoneView()
         
-        UIView.animate(withDuration: 1,
-                       delay: 0,
-                       options: .curveLinear,
-                       animations: { self.stoneView.frame.origin.y = self.carView.frame.origin.y - self.stoneView.bounds.height + 1 },
-                       completion: { _ in
-            if self.stoneView.frame.intersects(self.carView.frame) {
-                self.alertGameOver()
-                self.custView.isHidden = true
-                self.stopBarrier()
-            }
-            else {
-                UIView.animate(withDuration: 0.5,
-                               delay: 0,
-                               options: .curveLinear,
-                               animations: { self.stoneView.frame.origin.y = self.view.frame.maxY },
-                               completion: { _ in
-                    self.moveStone()
-                    self.score += 1
-                    self.setupScoreLabel()
-                   
+        if roadSideObserver == false {
+            
+            self.alertGameOver()
+            self.setupScoreLabel()
+            
+        } else {
+            let speed = UserDefaults.standard.double(forKey: "speed")
+            
+            setupStoneView()
+            
+            UIView.animate(withDuration: speed,
+                           delay: 0,
+                           options: .curveLinear,
+                           animations: { self.stoneView.frame.origin.y = self.carImageView.frame.origin.y - self.stoneView.bounds.height + 1 },
+                           completion: { _ in
+                
+                if self.stoneView.frame.intersects(self.carImageView.frame) {
                     
-                })
-            }
-        })
-    }
-    func moveCust(){
-        setupCustView()
-        UIView.animate(withDuration: 1,
-                       delay: 2,
-                       options: .curveLinear,
-                       animations: { self.custView.frame.origin.y = self.carView.frame.origin.y - self.custView.bounds.height + 1 },
-                       completion: { _ in
-            if self.custView.frame.intersects(self.carView.frame) {
-                self.alertGameOver()
-                self.stoneView.isHidden = true
-                self.stopBarrier()
-            }
-            else {
-                UIView.animate(withDuration: 0.5,
-                               delay: 0,
-                               options: .curveLinear,
-                               animations: { self.custView.frame.origin.y = self.view.frame.maxY },
-                               completion: { _ in
-                    self.moveCust()
-                    self.score += 1
-                    self.setupScoreLabel()
-                   
+                    self.alertGameOver()
                     
-                })
-            }
-        })
+                } else {
+                    UIView.animate(withDuration: speed / 2,
+                                   delay: 0,
+                                   options: .curveLinear,
+                                   animations: { self.stoneView.frame.origin.y = self.view.frame.maxY },
+                                   completion: { _ in
+                        self.moveStone()
+                        self.score += 1
+                        if self.roadSideObserver == true {  self.setupScoreLabel() } else {
+                            return
+                        }
+                    })
+                }
+            })
+        }
     }
     
-    func stopBarrier(){
-        stoneView.stopAnimating()
-        custView.stopAnimating()
-        scoreLabel.isHidden = true
-    }
-    
-    // MARK: Create gesture
+    // MARK: Swipe Gesture Recognizer
     
     func swipeCar() {
         let moveGesture = UIPanGestureRecognizer(target: self, action: #selector(moveCar(recognizer:)))
-        carView.addGestureRecognizer(moveGesture)
+        carImageView.addGestureRecognizer(moveGesture)
         
     }
     
     @objc func moveCar(recognizer: UIPanGestureRecognizer){
         let yCar: CGFloat = view.frame.maxY - view.frame.height / 4
-        let widthCar: CGFloat = view.frame.width / 5
+        let widthCar: CGFloat = view.frame.width / 4.25
         let heightCar: CGFloat = view.frame.height / 7
         
         if recognizer.state == .changed {
             
             let translation: CGPoint = recognizer.translation(in: self.view)
-            carView.center = CGPoint(x: carView.center.x + translation.x, y: yCar + heightCar / 2)
+            carImageView.center = CGPoint(x: carImageView.center.x + translation.x, y: yCar + heightCar / 2)
             recognizer.setTranslation(CGPoint.zero, in: self.view)
             
-            if carView.frame.minX < view.frame.minX {
-                carView.frame = CGRect(x: view.frame.minX, y: yCar, width: widthCar, height: heightCar)
+            if carImageView.frame.minX < view.frame.minX {
+                carImageView.frame = CGRect(x: view.frame.minX, y: yCar, width: widthCar, height: heightCar)
                 
             }
             
-            if carView.frame.maxX > view.frame.maxX {
-                carView.frame = CGRect(x: view.frame.maxX - widthCar, y: yCar, width: widthCar , height: heightCar)
+            if carImageView.frame.maxX > view.frame.maxX {
+                carImageView.frame = CGRect(x: view.frame.maxX - widthCar, y: yCar, width: widthCar , height: heightCar)
                 
             }
         }
         
-        roadSideAlert()
+        roadSideCheck()
         
     }
-  
+    
     //MARK: - Load Settings
     
     func loadSettings () {
-       if let settings = UserDefaults.standard.value(Setting.self, forKey: "settings"){
-            self.settingsGame = settings
+        if let settings = UserDefaults.standard.value(Setting.self, forKey: "settings"){
+            settingsGame = settings
         }
     }
     func carImage() {
         loadSettings()
-        let image = UIImage(named: self.settingsGame.car)
-        self.carView.image = image
+        let imageCar = UIImage(named: settingsGame.car)
+        carImageView.image = imageCar
+        
+    }
+   func barrierImage() {
+        loadSettings()
+        let imageBarrier = UIImage(named: settingsGame.barrier)
+        stoneView.image = imageBarrier
     }
 }
+
+
+
+extension NewGameViewController {
+        func alertGameOver() {
+            let alert = UIAlertController(title: "Game Over",message: "Score: \(scoreLabel.text!)", preferredStyle: .alert)
+            
+            UserDefaults.standard.set(scoreLabel.text!, forKey: "scoreUser")
+            
+            alert.addAction(UIAlertAction(title: "Main Menu", style: .default) { _ in
+                self.navigationController?.popToRootViewController(animated: true)
+                
+            })
+            self.present(alert, animated: true)
+            
+        }
+    }

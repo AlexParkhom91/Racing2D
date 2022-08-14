@@ -8,31 +8,6 @@
 import Foundation
 import UIKit
 
-extension NewGameViewController {
-    
-    func alertGameOver() {
-        let alert = UIAlertController(title: "Game Over",message: "Score: \(scoreLabel.text!)", preferredStyle: .alert)
-    
-        UserDefaults.standard.set(scoreLabel.text!, forKey: "scoreUser")
-
-        alert.addAction(UIAlertAction(title: "Main Menu", style: .default) { _ in
-         self.navigationController?.popToRootViewController(animated: true)
-        
-        })
-        self.present(alert, animated: true)
-        
-    }
-    
-  func roadSideAlert() {
-      if carView.frame.intersects(LeftRoadSide.frame) || carView.frame.intersects(RightRoadSide.frame){
-          alertGameOver()
-          stoneView.isHidden = true
-          custView.isHidden = true
-          stopBarrier()
-      }
-    }
-}
-
 extension ViewController{
     
     func alertNewUser() {

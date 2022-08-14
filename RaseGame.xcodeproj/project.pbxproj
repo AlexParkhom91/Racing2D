@@ -73,6 +73,15 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		6962DBCB289C232300121A49 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				6961A988289C192600689DE3 /* Settings.swift */,
+				6961A98A289C19B200689DE3 /* UserDefaults.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		69871B07287EB7330097BF0B = {
 			isa = PBXGroup;
 			children = (
@@ -95,8 +104,7 @@
 			children = (
 				69871B13287EB7330097BF0B /* AppDelegate.swift */,
 				69871B15287EB7330097BF0B /* SceneDelegate.swift */,
-				6961A988289C192600689DE3 /* Settings.swift */,
-				6961A98A289C19B200689DE3 /* UserDefaults.swift */,
+				6962DBCB289C232300121A49 /* Settings */,
 				6936BD322881F0FA00BC2F44 /* ViewControllers */,
 				69871B19287EB7330097BF0B /* Main.storyboard */,
 				69871B1C287EB7330097BF0B /* Assets.xcassets */,
