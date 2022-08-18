@@ -15,6 +15,7 @@ class RecordsViewController: UIViewController{
     let userNameLabel = UILabel()
     let scoreUserLabel = UILabel()
     let backgroundView = UIImageView()
+    let pickerView = UIDatePicker()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,7 @@ class RecordsViewController: UIViewController{
         setupLayout()
         setupUserNameLabel()
         setupScoreUserLabel()
+        datePicker()
 
     }
     
@@ -56,7 +58,7 @@ class RecordsViewController: UIViewController{
         NSLayoutConstraint.activate([
             userNameLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1.25/3),
             userNameLabel.heightAnchor.constraint(equalToConstant: 50),
-            userNameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            userNameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 200),
             userNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10)
         ])
     }
@@ -80,8 +82,27 @@ class RecordsViewController: UIViewController{
         NSLayoutConstraint.activate([
             scoreUserLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1.25 / 3),
             scoreUserLabel.heightAnchor.constraint(equalToConstant: 50),
-            scoreUserLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            scoreUserLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 200),
             scoreUserLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
         ])
     }
+    
+    func datePicker(){
+        view.addSubview(pickerView)
+        pickerView.translatesAutoresizingMaskIntoConstraints = false
+        pickerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+        pickerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        pickerView.preferredDatePickerStyle = .compact
+        pickerView.date = Date()
+        pickerView.backgroundColor = .systemBlue
+        
+        let currentDate = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd"
+        let stringDate = dateFormatter.string(from: currentDate)
+        
+        print(stringDate)
+        
+    }
+    
 }
