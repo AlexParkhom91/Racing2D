@@ -5,104 +5,128 @@
 //  Created by Александр Пархамович on 13.07.22.
 //
 
-import Foundation
 import UIKit
 
-class RecordsViewController: UIViewController{
+class RecordsViewController: UIViewController {
     
-    //MARK: - UI Element's
+    // MARK: - UI Element's
+    private let backgroundView = UIImageView()
+    private var scoreTableView = UITableView()
+    let indentifire = "MyCell"
+    let cell = UITableViewCell()
 
-    let userNameLabel = UILabel()
-    let scoreUserLabel = UILabel()
-    let backgroundView = UIImageView()
-    let pickerView = UIDatePicker()
     
+    // MARK: - Constants
+    
+    // MARK: - Variables
+    
+    var tableArray: [String] = []
+    
+    // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupViewElements()
         setupLayout()
-        setupUserNameLabel()
-        setupScoreUserLabel()
-        datePicker()
+        setupAppearance()
+        saveCurrentDate()
+        loadRecords()
+        
+        
+    }
+    
+    // MARK: - Load Records
+    private func loadRecords() {
+        let scoreUser = Records.shared.currentRecords.saveScoreUser
+        let userName = Records.shared.currentRecords.saveUserName
+        let currentDate = Records.shared.currentRecords.saveDate
 
+      
+       
+        
+        
+        let dataRecordsCell = "Date: \(currentDate) \nUser : \(userName) , score: \(scoreUser)"
+        tableArray.append(dataRecordsCell)
+        print(tableArray)
+        
+       
     }
     
-    //MARK: - Setup Layout
+   
     
-    func setupLayout() {
+    // MARK: - Save Current Date
+    private func saveCurrentDate(){
+        let df = DateFormatter()
+        df.dateFormat = "dd-MM-yyyy HH:mm:ss"
+        Records.shared.currentRecords.saveDate = df.string(from: Date())
         
-        backgroundView.image = UIImage(named: "menu")
-        backgroundView.frame = view.frame
-        backgroundView.center = view.center
+    }
+    
+    // MARK: - Setup View Elements
+    private func setupViewElements() {
         view.addSubview(backgroundView)
-        
+        view.addSubview(scoreTableView)
         
     }
     
-    //MARK: - Setup userNameLabel
-    
-    func setupUserNameLabel() {
-        
-        userNameLabel.backgroundColor = .blue
-        userNameLabel.layer.opacity = 0.75
-        userNameLabel.textAlignment = .center
-        userNameLabel.font = .boldSystemFont(ofSize: 26)
-        userNameLabel.textColor = .white
-        userNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(userNameLabel)
-        
-        if let name = UserDefaults.standard.object(forKey: "name") {
-            userNameLabel.text = name as? String
-        }
-        
+    // MARK: - Setup Layout
+    private func setupLayout() {
         NSLayoutConstraint.activate([
-            userNameLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1.25/3),
-            userNameLabel.heightAnchor.constraint(equalToConstant: 50),
-            userNameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 200),
-            userNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10)
+            backgroundView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            backgroundView.heightAnchor.constraint(equalTo: view.heightAnchor),
+            backgroundView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            backgroundView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            scoreTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+            scoreTableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            scoreTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -15),
+            scoreTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15)
+        
         ])
     }
     
-    //MARK: - Setup ScoreUserLabel
-    
-    func setupScoreUserLabel() {
-        
-        scoreUserLabel.backgroundColor = .blue
-        scoreUserLabel.layer.opacity = 0.75
-        scoreUserLabel.textAlignment = .center
-        scoreUserLabel.font = .boldSystemFont(ofSize: 26)
-        scoreUserLabel.textColor = .white
-        scoreUserLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(scoreUserLabel)
-        
-        if let scoreUser = UserDefaults.standard.object(forKey: "scoreUser") {
-            scoreUserLabel.text = scoreUser as? String
-        }
-        
-        NSLayoutConstraint.activate([
-            scoreUserLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1.25 / 3),
-            scoreUserLabel.heightAnchor.constraint(equalToConstant: 50),
-            scoreUserLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 200),
-            scoreUserLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
-        ])
-    }
-    
-    func datePicker(){
-        view.addSubview(pickerView)
-        pickerView.translatesAutoresizingMaskIntoConstraints = false
-        pickerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
-        pickerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        pickerView.preferredDatePickerStyle = .compact
-        pickerView.date = Date()
-        pickerView.backgroundColor = .systemBlue
-        
-        let currentDate = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd"
-        let stringDate = dateFormatter.string(from: currentDate)
-        
-        print(stringDate)
+    // MARK: - Setup Appearance
+    private func setupAppearance() {
+        setupAppearanceBackgroundView()
+        setupAppearanceScoreTableView()
         
     }
+    
+    // MARK: - Setup Appearance Background View
+    private func setupAppearanceBackgroundView(){
+        backgroundView.image = UIImage(named: "menu")
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        
+    }
+    
+    // MARK: - Setup Appearance Score Label
+    private func setupAppearanceScoreTableView(){
+        scoreTableView.translatesAutoresizingMaskIntoConstraints = false
+        scoreTableView.layer.opacity = 0.5
+        scoreTableView.delegate = self
+        scoreTableView.dataSource = self
+        scoreTableView.register(UITableViewCell.self, forCellReuseIdentifier: indentifire)
+        scoreTableView.backgroundColor = .systemGray
+       
+    }
+}
+
+
+
+extension RecordsViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableArray.count 
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: indentifire, for: indexPath)
+        cell.textLabel?.numberOfLines = 2
+        cell.textLabel?.text = tableArray[indexPath.row]
+        return cell
+    
+       
+    }
+   
     
 }

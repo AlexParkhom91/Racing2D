@@ -6,39 +6,42 @@
 //
 
 import Foundation
-import UIKit
 
-class Setting: Codable {
-    
-    var car: String
-    var barrier: String
-    
-    
-    init(car: String, barrier: String){
-        self.car = car
-        self.barrier = barrier
-    
-    }
-    
-    public enum CodingKeys: String, CodingKey {
-        case car,barrier
-        
-    }
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        self.car = try container.decode(String.self, forKey: .car)
-        self.barrier = try container.decode(String.self, forKey: .barrier)
-        
-    }
-    
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        
-        try container.encode(self.car, forKey: .car)
-        try container.encode(self.barrier, forKey: .barrier)
-        
-    }
+enum KeysUserDefault{
+   static let settingsGameKey = "settingsGame"
 }
 
+struct SettingsGame: Codable {
+    var Car: String
+    var Barrier: String
+    var SpeedGame: Double
+    
+}
+
+class Settings {
+    
+    static var shared = Settings()
+
+    private let defaultSettings = SettingsGame(Car: "Car", Barrier: "Cust", SpeedGame: 1.5)
+    
+    var currentSettings:SettingsGame{
+        get{
+            if let data = UserDefaults.standard.object(forKey: KeysUserDefault.settingsGameKey) as? Data{
+                return try! PropertyListDecoder().decode(SettingsGame.self, from: data)
+            } else {
+                if let data = try? PropertyListEncoder().encode(defaultSettings){
+                    UserDefaults.standard.setValue(data, forKey: KeysUserDefault.settingsGameKey)
+
+                           }
+                return defaultSettings
+            }
+        }
+        set {
+            
+            if let data = try? PropertyListEncoder().encode(newValue){
+                UserDefaults.standard.setValue(data, forKey: KeysUserDefault.settingsGameKey)
+               
+            }
+        }
+    }
+}

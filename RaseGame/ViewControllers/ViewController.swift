@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     let settingsButton = UIButton()
     let recordsButton = UIButton()
     let newUserButton = UIButton()
+    var tableArray: [String] = []
     
     let recordsVC = RecordsViewController()
     
@@ -114,8 +115,37 @@ class ViewController: UIViewController {
     @objc func createNewUser() {
        alertNewUser()
     }
-     
+
+    private func alertNewUser() {
+        let alertController = UIAlertController(title: "New User Name: ", message: nil, preferredStyle: .alert)
+        let alertSave = UIAlertAction(title: "Save", style: .cancel) { (action) in
+            
+            guard let textOfTextField = alertController.textFields?.first?.text else { return }
+            Records.shared.currentRecords.saveUserName = textOfTextField
+                UserDefaults.standard.set(textOfTextField, forKey: "name")
+   //MARK: - SAVE RECORDS
+            if let textTf = alertController.textFields?.first?.text {
+               self.tableArray.append(textTf)
+            }
+            print(self.tableArray)
+            UserDefaults.standard.set(self.tableArray, forKey: "array")
+        }
+
+        
+        alertController.addTextField { tf in
+            tf.placeholder = "Name New User"
+        }
+        
+        let alertCancel = UIAlertAction(title: "Cancel", style: .destructive)
+        alertController.addAction(alertCancel)
+        alertController.addAction(alertSave)
+        present(alertController, animated: true)
+        
+    }
 }
+
+
+
 
 
 
